@@ -15,10 +15,13 @@ module Rack
       /\Ahttp:\/\// => '//'
     }.freeze
 
+    MATCH_REGEX = Regexp.union(HTTPS_DOMAINS.keys).freeze
+
     def initialize(app)
       super(
           app,
-          xpath: %w(img script embed iframe).map {|x| "//#{x}[@src[starts-with(.,'http://')]]"}.join(' | ')
+          xpath: %w(img script embed iframe).map {|x| "//#{x}[@src[starts-with(.,'http://')]]"}.join(' | '),
+          skip_if: ->(*, content) {!content.match?(MATCH_REGEX)}
       ) do |nodes, env|
         nodes.each do |node|
           # Output the urls we're rewriting so we can update them to https
