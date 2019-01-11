@@ -34,7 +34,8 @@
   },
   "resolutions": {
     "eshost": "github:pcardune/eshost#f3fa7fa",
-    "test262-compiler": "github:pcardune/test262-compiler#ffa0dff"
+    "test262-compiler": "github:pcardune/test262-compiler#ffa0dff",
+    "uglifyjs-webpack-plugin": "1.3.0"
   },
   "devDependencies": {
     "@cdo/apps": "file:src",

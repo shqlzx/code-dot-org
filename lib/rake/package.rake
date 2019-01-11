@@ -34,13 +34,13 @@ namespace :package do
       packager = apps_packager
       expected_commit_hash = packager.commit_hash
 
-      ChatClient.wrap('Building apps') {Rake::Task['build:apps'].invoke}
+      Rake::Task['build:apps'].invoke
 
       unless rack_env?(:adhoc)
         # Check that building apps did not generate unexpected changes either.
         Rake::Task['circle:check_for_unexpected_apps_changes'].invoke
 
-        ChatClient.wrap('Testing apps') {Rake::Task['test:apps'].invoke}
+        Rake::Task['test:apps'].invoke
       end
 
       # upload to s3

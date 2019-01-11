@@ -23,10 +23,11 @@ namespace :build do
       # Workaround for https://github.com/karma-runner/karma-phantomjs-launcher/issues/120
       RakeUtils.npm_rebuild 'phantomjs-prebuilt'
 
-      ChatClient.log 'Building <b>apps</b>...'
-      npm_target = (rack_env?(:development) || ENV['CI']) ? 'build' : 'build:dist'
-      RakeUtils.system "npm run #{npm_target}"
-      File.write(commit_hash, calculate_apps_commit_hash)
+      ChatClient.wrap('Building <b>apps</b>...') do
+        npm_target = (rack_env?(:development) || ENV['CI']) ? 'build' : 'build:dist'
+        RakeUtils.system "npm run #{npm_target}"
+        File.write(commit_hash, calculate_apps_commit_hash)
+      end
     end
   end
 

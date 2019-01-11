@@ -251,7 +251,8 @@ function create(options) {
     config.plugins = config.plugins.concat(
       [
         new webpack.optimize.UglifyJsPlugin({
-          compressor: {
+          parallel: true,
+          uglifyOptions: {
             warnings: false
           },
           // Don't generate source maps for our minified code, as these are expensive
