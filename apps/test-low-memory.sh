@@ -31,7 +31,7 @@ $GRUNT_CMD preconcat
 export SHELL=/bin/bash
 
 if command -v parallel 2>/dev/null; then
-  PARALLEL="parallel --halt now,fail=1 -j ${NPROC} --joblog - :::"
+  PARALLEL="parallel --halt 2 -j ${NPROC} --joblog - :::"
 else
   PARALLEL="xargs -P${NPROC} -I{} ${SHELL} -c {}"
 fi
