@@ -33,7 +33,7 @@ export SHELL=/bin/bash
 if command -v parallel 2>/dev/null; then
   PARALLEL="parallel --halt 2 -j ${NPROC} --joblog - :::"
 else
-  PARALLEL="xargs -P${NPROC} -I{} ${SHELL} -c {}"
+  PARALLEL="xargs -P${NPROC} -d\n -L1 -n1 ${SHELL} -c"
 fi
 
 ${PARALLEL} <<SCRIPT
@@ -43,9 +43,9 @@ npm run lint
 (PORT=9878 $GRUNT_CMD scratchTest && ${CODECOV} -cF scratch) ${LOG} log/scratchTest.log
 (PORT=9879 LEVEL_TYPE='turtle' $GRUNT_CMD karma:integration && \
   ${CODECOV} -cF integration) ${LOG} log/turtleTest.log
-(PORT=9880 LEVEL_TYPE='maze\|bounce\|calc\|eval\|flappy\|studio' $GRUNT_CMD karma:integration && \
+(PORT=9880 LEVEL_TYPE='maze|bounce|calc|eval|flappy|studio' $GRUNT_CMD karma:integration && \
   ${CODECOV} -cF integration) ${LOG} log/integrationTest.log
-(PORT=9881 LEVEL_TYPE='applab\|gamelab' $GRUNT_CMD karma:integration && \
+(PORT=9881 LEVEL_TYPE='applab|gamelab' $GRUNT_CMD karma:integration && \
   ${CODECOV} -cF integration) ${LOG} log/appLabgameLabTest.log
 (PORT=9882 LEVEL_TYPE='craft' $GRUNT_CMD karma:integration && \
   ${CODECOV} -cF integration) ${LOG} log/craftTest.log
