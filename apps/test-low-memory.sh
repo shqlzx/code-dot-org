@@ -8,7 +8,7 @@ GRUNT_CMD="node --max_old_space_size=4096 `npm bin`/grunt"
 if [ -n "$CIRCLECI" ]; then
   NPROC=4
   mkdir -p log
-  echo <<STR
+  cat <<STR
 ###################################################################
 #                                                                 #
 #   See 'apps-test-log' under the artifacts tab for test output   #
